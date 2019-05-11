@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+        select {
+            width:200px;
+            height: 200px;
+            background-color: #33cccc;
+            font-size: 20px;
+        }
+    </style>
+	</head>
+	<body>
+		<!--后台权限分配-->
+		<select id="all" multiple="multiple">
+			<!--如果要使下拉框多选的话  就添加multiple属性-->
+		    <option>苹果</option>
+		    <option>橘子</option>
+		    <option>梨</option>
+		    <option>西瓜</option>
+		    <option>水蜜桃</option>
+  		</select>
+
+		  <input type="button" value=">>" id="btn1">
+		  <input type="button" value="<<" id="btn2">
+		  <input type="button" value=">" id="btn3">
+		  <input type="button" value="<" id="btn4">
+
+  		<select id="select" multiple="multiple">
+    
+  </select>
+		
+		<script type="text/javascript">
+			var all = document.getElementById("all");
+			var sel = document.getElementById("select");
+			
+			// 1.移动全部水果到右边
+			var btn1 = document.getElementById("btn1");
+			btn1.onclick = function() {
+				// 使用这种方式移动子元素的话 如果子元素含有事件的话  移动之后子元素的事件消失
+				sel.innerHTML = all.innerHTML;
+				// 使用这种方式清除子元素的话 如果子元素含有事件的话  清除之后子元素发生内存泄漏 即该释放的内存没有释放
+				all.innerHTML = "";
+			}
+			// 2.移动全部水果刀左边
+			var btn2 = document.getElementById("btn2");
+			btn2.onclick = function() {
+				var len = sel.children.length;
+				for (var i=0;i<len;i++) {
+					all.appendChild(sel.children[0]);
+				}
+			}
+			
+			// 3.移动选中水果到右边
+			var btn3 = document.getElementById("btn3");
+			btn3.onclick = function() {
+				// 将选中的水果放置数组中
+				var arr = [];
+				for (var i=0;i<all.children.length;i++) {
+					if (all.children[i].selected) {
+						arr.push(all.children[i]);
+						// 去掉option的选中效果
+						all.children[i].selected = false;
+					}
+				}
+				//把数组中的数据移动到右边
+				for (var i=0;i<arr.length;i++) {
+					sel.appendChild(arr[i]);
+				}
+			}
+			
+			// 4.移动选中水果到左边
+			var btn4 = document.getElementById("btn4");
+			btn4.onclick = function() {
+				var arr1 = [];
+				for (var i=0;i<sel.children.length;i++) {
+					if (sel.children[i].selected) {
+						arr1.push(sel.children[i]);
+						sel.children[i].selected = false;
+					}
+				}
+				for (var i=0;i<arr1.length;i++) {
+					all.appendChild(arr1[i]);
+				}
+			}
+			
+		</script>
+		
+		
+	</body>
+</html>
