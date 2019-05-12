@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<h3>距离国庆节还有</h3>
+		
+		<div class="time-item">
+			<span><span id="day">00</span> 天</span>
+			<span><span id="hour">00</span> 时</span>
+			<span><span id="min">00</span> 分</span>
+			<span><span id="second">00</span> 秒</span>
+		</div>
+		<script type="text/javascript">
+			var spanDay = document.getElementById("day");
+			var spanHour = document.getElementById("hour");
+			var spanMin = document.getElementById("min");
+			var spanSecond = document.getElementById("second");
+			
+			
+			
+			// 逻辑是： 设置计时器 每隔一秒钟计算一次时间差
+//			setInterval(function(){
+//				// 现在时间
+//				var startTime = new Date();
+//				// 结束时间
+//				var endTime = new Date("2019-10-1 0:0:0")
+//				// 计算时间的差值
+//				var interval = endTime - startTime;
+//				var intervalSecond = interval / 1000;
+//				var day = Math.floor(intervalSecond / 60/60 /24);
+//				var hour = Math.floor(intervalSecond /60 /60 % 24);
+//				var min = Math.floor(intervalSecond /60 % 60);
+//				var second = Math.floor(intervalSecond %60);
+//				
+//				
+//				spanDay.innerText = day;
+//				spanHour.innerText = hour;
+//				spanMin.innerText = min;
+//				spanSecond.innerText = second;
+//			},1000)
+
+			setInterval(countTime,1000)  // 注意此处是将countTime函数赋值给setInterval，所以不能加小括号  否则变成函数调用
+			// 在页面加载完毕之后加载函数  使得加载那一刻所有的倒计时归零
+			countTime();
+			
+			function countTime() {
+				// 现在时间
+				var startTime = new Date();
+				// 结束时间
+				var endTime = new Date("2019-10-1 0:0:0")
+				// 计算时间的差值
+				var interval = endTime - startTime;
+				var intervalSecond = interval / 1000;
+				var day = Math.floor(intervalSecond / 60/60 /24);
+				var hour = Math.floor(intervalSecond /60 /60 % 24);
+				var min = Math.floor(intervalSecond /60 % 60);
+				var second = Math.floor(intervalSecond %60);
+				
+				
+				spanDay.innerText = day;
+				spanHour.innerText = hour;
+				spanMin.innerText = min;
+				spanSecond.innerText = second;
+			}
+			
+			
+		</script>
+		
+	</body>
+</html>

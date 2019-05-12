@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			#box {
+				width: 100px;
+				height: 100px;
+				background-color: mediumvioletred;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" id="btn" value="开始" />
+		<div id="box"></div>
+		<script type="text/javascript">
+			
+			// 1.点击按钮让盒子能够向右移动版
+			// 2.能让盒子不停的向右移动
+			
+			// 注意：style.left获取的是标签中的style属性中设置的值
+			// 如果标签中的style没有设置的样式属性，获取的就是空字符串
+			// 获取盒子当前的位置  offsetLeft   offsTop
+			
+			var btn = document.getElementById("btn");
+			var box = document.getElementById("box");
+			
+			btn.onclick = function() {
+				var timeId = setInterval(function(){
+					// 当盒子的位置到达600时终止
+				var target = 700;
+				var step = 8;
+				if (box.offsetLeft >= target) {
+					clearInterval(timeId);
+					box.style.left =  target + 'px';
+					// 终止函数
+					return;
+					}
+				box.style.left = box.offsetLeft + step + 'px';
+				},30)
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>
