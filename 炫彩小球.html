@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>炫彩小球</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            background-color:  black;
+            overflow: hidden;
+        }
+        canvas {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        var mycanvas = document.getElementsByTagName('canvas')[0];
+        var ctx = mycanvas.getContext('2d');
+        // 获取画布满屏
+        mycanvas.width = document.documentElement.clientWidth;
+        mycanvas.height = document.documentElement.clientHeight;
+
+        function Ball(x,y) {
+            this.x = x;
+            this.y = y;
+            this.r = 25;
+            this.color = "rgba("+parseInt(Math.random()*256)+"," + parseInt(Math.random()*256) + "," + parseInt(Math.random()*256)+","+"0.8"+")";
+            this.dx = parseInt(Math.random()*8)-4;
+            this.dy = parseInt(Math.random()*8)-4;
+            ballsArr.push(this);
+        }
+        Ball.prototype.update = function(){
+            this.x += this.dx;
+            this.y += this.dy;
+            this.r --;
+            // 当半径为负数时会报错；需要进行判断，当半径为负数时，从数组中移除
+            if(this.r<0){
+                this.godie();
+            };
+        }
+        Ball.prototype.render = function(){
+            ctx.beginPath();
+            ctx.arc(this.x,this.y,this.r,0,Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+        Ball.prototype.godie = function(){
+            for(var i=0;i<ballsArr.length;i++){
+                if(ballsArr[i]===this){
+                    ballsArr.splice(i,1);
+                }
+            };
+        }
+
+        var ballsArr = [];
+
+        mycanvas.onmousemove = function(event){
+            new Ball(event.clientX,event.clientY);
+        }
+
+        setInterval(function(){
+            ctx.clearRect(0,0,mycanvas.width,mycanvas.height);
+            for(var i=0;i<ballsArr.length;i++){
+                ballsArr[i].update();
+                // 由于update时半径可能为负值，验证渲染的是不是已经删除，否则会报错
+                ballsArr[i] && ballsArr[i].render();
+            }
+        },20)
+
+    </script>
+</body>
+</html>
